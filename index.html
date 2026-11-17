@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="SAINT is a little corner of the internet for big creative energy."
+    />
+    <meta name="theme-color" content="#10110f" />
+    <title>SAINT — Find your next favorite</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <aside class="file-protocol-warning" id="file-protocol-warning" role="alert" hidden>
+      <div class="file-warning-card">
+        <span class="warning-symbol">↗</span>
+        <p class="eyebrow">ONE QUICK STEP</p>
+        <h1>Open SAINT through its app server.</h1>
+        <p>This file preview blocks the app’s JavaScript, so its buttons can’t respond. Open the running app instead.</p>
+        <a class="upload-button" href="http://127.0.0.1:4173/">Open the working app <span aria-hidden="true">→</span></a>
+        <small>If that page won’t load, start the server using the steps in <a href="SETUP.md">SETUP.md</a>.</small>
+      </div>
+    </aside>
+    <script>
+      if (window.location.protocol === "file:") {
+        document.querySelector("#file-protocol-warning").hidden = false;
+      }
+    </script>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#" aria-label="SAINT home">
+          <span class="brand-mark" aria-hidden="true">↗</span>
+          <span>SAINT<span class="brand-period">.</span></span>
+        </a>
+
+        <nav class="primary-nav">
+          <button class="nav-link is-active" data-nav="For you" aria-current="page">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z" /></svg>
+            <span>For you</span>
+          </button>
+          <button class="nav-link" data-nav="Following">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm13 10v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+            <span>Following</span>
+          </button>
+          <button class="nav-link" data-nav="Discover">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4m-5-8 1.5 2.5L15 12l-2.5 1.5L11 16l-1.5-2.5L7 12l2.5-1.5z" /></svg>
+            <span>Discover</span>
+          </button>
+          <button class="nav-link" data-nav="LIVE">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="3" /><path d="m10 10 5 2.5-5 2.5zM7 3v3m10-3v3" /></svg>
+            <span>LIVE</span><span class="live-dot"></span>
+          </button>
+          <button class="nav-link" data-nav="Inbox">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM4 13h4l2 3h4l2-3h4" /></svg>
+            <span>Inbox</span>
+            <span class="inbox-count" aria-label="3 unread">3</span>
+          </button>
+        </nav>
+
+        <button class="upload-button" id="upload-trigger">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m-5 5 5-5 5 5M4 16v4h16v-4" /></svg>
+          <span>Upload a video</span>
+        </button>
+
+        <section class="sidebar-section creators-section" aria-labelledby="creators-heading">
+          <div class="section-heading">
+            <h2 id="creators-heading">Creators in your feed</h2>
+            <button class="text-button" id="see-all-creators">See all</button>
+          </div>
+          <div id="creator-list" class="creator-list"></div>
+        </section>
+
+        <div class="sidebar-footer">
+          <p>Made for the moments<br />that make you <span>you.</span></p>
+          <div class="footer-links"><a href="#about">About</a><a href="#guidelines">Guidelines</a><a href="#privacy">Privacy</a></div>
+          <small>© 2026 SAINT Social</small>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="mobile-header">
+          <a class="brand" href="#" aria-label="SAINT home">
+            <span class="brand-mark" aria-hidden="true">↗</span><span>SAINT<span class="brand-period">.</span></span>
+          </a>
+          <button class="icon-button mobile-search" id="search-toggle" aria-label="Search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4" /></svg>
+          </button>
+        </header>
+
+        <div class="feed-column">
+          <div class="feed-toolbar">
+            <div class="feed-tabs" role="tablist" aria-label="Video feed">
+              <button class="feed-tab" data-feed="Following" role="tab" aria-selected="false">Following</button>
+              <button class="feed-tab is-active" data-feed="For you" role="tab" aria-selected="true">For you</button>
+            </div>
+            <label class="search-box" id="search-box">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4" /></svg>
+              <input id="search-input" type="search" placeholder="Search creators, sounds..." aria-label="Search creators and videos" />
+              <kbd>/</kbd>
+            </label>
+            <button class="toolbar-account" id="toolbar-account" aria-label="Open account">Sign in</button>
+          </div>
+
+          <div class="connection-banner" id="connection-banner" role="status" hidden></div>
+          <div class="feed" id="video-feed" aria-label="Short video feed"></div>
+          <div class="feed-end" id="feed-empty" hidden>
+            <span class="empty-sparkle">✳</span>
+            <h2 id="empty-title">No videos just yet</h2>
+            <p id="empty-description">Be the first to share a video with the SAINT community.</p>
+            <button class="upload-button" id="empty-reset">Back to For you</button>
+          </div>
+        </div>
+      </main>
+
+      <aside class="right-rail" aria-label="Your community">
+        <div class="profile-card">
+          <div class="profile-topline"><span class="online-indicator"></span><span>Your little corner</span><button class="more-button" aria-label="More options">···</button></div>
+          <div class="profile-user">
+            <div class="avatar avatar-you" id="profile-avatar">?</div>
+            <div><strong id="profile-name">Welcome to SAINT</strong><span id="profile-handle">Sign in to join in</span></div>
+            <button class="edit-button" id="account-trigger">Sign in</button>
+          </div>
+          <div class="profile-stats">
+            <div><strong id="following-count">0</strong><span>Following</span></div>
+            <div><strong id="video-count">0</strong><span>Your videos</span></div>
+            <div><strong>✿</strong><span>Your corner</span></div>
+          </div>
+          <p class="profile-bio" id="profile-bio">A feed made by people like you.</p>
+        </div>
+
+        <section class="trending-card">
+          <div class="section-heading"><h2>Your SAINT feed</h2><span class="trending-icon">✿</span></div>
+          <p class="feed-tip">Videos are shared by the community. Follow creators to see their posts in your Following feed.</p>
+          <button class="feed-tip-action" id="feed-tip-upload">Share your first video <span>↗</span></button>
+        </section>
+
+        <section class="community-note">
+          <span class="note-icon">✳</span>
+          <div><strong>A kinder corner of the internet.</strong><p>Be curious. Be kind. Keep it real.</p></div>
+        </section>
+
+        <button class="feedback-button" id="feedback-button"><span>✦</span> Send a little feedback</button>
+      </aside>
+    </div>
+
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <button class="mobile-nav-link is-active" data-nav="For you" aria-label="For you"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z" /></svg><span>Home</span></button>
+      <button class="mobile-nav-link" data-nav="Discover" aria-label="Discover"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4m-5-8 1.5 2.5L15 12l-2.5 1.5L11 16l-1.5-2.5L7 12l2.5-1.5z" /></svg><span>Discover</span></button>
+      <button class="mobile-create" id="mobile-upload" aria-label="Upload a video">+</button>
+      <button class="mobile-nav-link" data-nav="Inbox" aria-label="Inbox"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM4 13h4l2 3h4l2-3h4" /></svg><span>Inbox</span></button>
+      <button class="mobile-nav-link" data-nav="Profile" aria-label="Profile"><span class="mini-avatar" id="mobile-avatar">?</span><span>Me</span></button>
+    </nav>
+
+    <input id="video-upload" type="file" accept="video/*" hidden />
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <dialog class="account-dialog" id="account-dialog" aria-labelledby="account-title">
+      <button class="icon-button close-dialog" type="button" aria-label="Close account">×</button>
+      <div class="account-brand"><span class="brand-mark" aria-hidden="true">↗</span><span>SAINT<span class="brand-period">.</span></span></div>
+      <section id="signed-out-panel">
+        <span class="eyebrow">YOUR PEOPLE, YOUR VIDEOS</span>
+        <h2 id="account-title">Come on in.</h2>
+        <p class="account-intro">Sign in to post videos, follow creators, and leave a little love.</p>
+        <form id="account-form" class="account-form">
+          <label id="display-name-field" hidden>Your name<input id="display-name-input" name="displayName" maxlength="40" autocomplete="name" /></label>
+          <label>Email address<input id="email-input" name="email" type="email" autocomplete="email" required /></label>
+          <label>Password<input id="password-input" name="password" type="password" minlength="8" autocomplete="current-password" required /></label>
+          <p class="auth-error" id="auth-error" role="alert" hidden></p>
+          <button class="upload-button account-submit" id="account-submit" type="submit">Sign in</button>
+        </form>
+        <button class="text-button account-switch" id="account-switch" type="button">New here? Create an account</button>
+        <button class="text-button reset-password" id="reset-password" type="button">Forgot your password?</button>
+      </section>
+      <section id="signed-in-panel" hidden>
+        <span class="eyebrow">YOUR SAINT ACCOUNT</span>
+        <h2 id="signed-in-title">You’re in.</h2>
+        <p class="account-intro" id="signed-in-email"></p>
+        <button class="upload-button account-submit" id="sign-out-button" type="button">Sign out</button>
+      </section>
+    </dialog>
+    <dialog class="upload-dialog" id="upload-dialog" aria-labelledby="upload-title">
+      <div class="dialog-header"><div><span class="eyebrow">MAKE IT YOURS</span><h2 id="upload-title">Share a video</h2></div><button class="icon-button close-dialog" type="button" aria-label="Close upload">×</button></div>
+      <form class="upload-form" id="upload-form">
+        <label class="upload-dropzone" for="video-upload"><span class="upload-drop-icon">↑</span><strong id="upload-file-name">Choose a video to share</strong><small>MP4, WebM, or another video · up to 100 MB</small></label>
+        <label class="caption-label">Add a caption<textarea id="caption-input" name="caption" maxlength="300" rows="3" placeholder="What’s happening in this video?"></textarea></label>
+        <div class="upload-progress-wrap" id="upload-progress-wrap" hidden><progress id="upload-progress" max="100" value="0"></progress><span id="upload-progress-label">Getting your video ready…</span></div>
+        <p class="auth-error" id="upload-error" role="alert" hidden></p>
+        <button class="upload-button account-submit" id="publish-button" type="submit">Post video</button>
+      </form>
+    </dialog>
+    <dialog class="comments-dialog" id="comments-dialog" aria-labelledby="comments-title">
+      <div class="dialog-header"><div><span class="eyebrow">THE CONVERSATION</span><h2 id="comments-title">Little love notes</h2></div><button class="icon-button close-dialog" aria-label="Close comments">×</button></div>
+      <div class="comment-list" id="comment-list"></div>
+      <form class="comment-form" id="comment-form"><div class="avatar avatar-you" id="comment-avatar">?</div><input id="comment-input" name="comment" maxlength="300" placeholder="Sign in to leave a little love..." autocomplete="off" required /><button type="submit" aria-label="Post comment">↑</button></form>
+    </dialog>
+    <script   type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyB4MlTaPcSrK6KPEflPJ2R9gs1SL4qCYzo",
+    authDomain: "saint-b9d20.firebaseapp.com",
+    projectId: "saint-b9d20",
+    storageBucket: "saint-b9d20.firebasestorage.app",
+    messagingSenderId: "245000520602",
+    appId: "1:245000520602:web:bb957a2415195978a4f023",
+    measurementId: "G-YNR2HY559B"
+  };
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+</body>
+</html>
